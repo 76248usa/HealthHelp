@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function () {
-    return view('admin.dashboard');
-});
+
 
 Route::get('/index/test', function () {
     return view('test');
@@ -29,10 +28,22 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('category', 'CategoryController');
+Route::get('/', 'FrontProductListController@index');
+Route::get('/physician/{id}', 'FrontProductListController@show')->name('physician.view');
+Route::get('all/products', 'FrontProductListController@moreProducts')->name('more.product');
+Route::get('/category/{name}', 'FrontProductListController@allProduct')->name('product.list');
 
-Route::resource('subcategory', 'SubcategoryController');
+Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'isAdmin']], function () {
 
-Route::resource('physician', 'PhysicianController');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
 
-Route::get('subcategories/{id}', 'PhysicianController@loadSubCategories');
+    Route::resource('category', 'CategoryController');
+
+    Route::resource('subcategory', 'SubcategoryController');
+
+    Route::resource('physician', 'PhysicianController');
+
+    Route::get('subcategories/{id}', 'PhysicianController@loadSubCategories');
+});

@@ -94,19 +94,6 @@
 
     </div>
 
-
-    <div class="row">
-
-
-
-
-
-
-    </div>
-
-
-
-
 @stop
 
 @endsection

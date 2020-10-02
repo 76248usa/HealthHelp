@@ -265,6 +265,23 @@ input {
   overflow: visible;
 }
 
+#but1 {
+    
+  border-color: #2196F3;
+  color: dodgerblue
+}
+
+#but2 {
+    border-color: #845BBD;
+    color: #845BBD; 
+}
+
+#h5 {
+
+    color: #C0C0C0
+
+}
+
 button,
 select {
   text-transform: none;
@@ -5252,6 +5269,19 @@ input[type=button].btn-block {
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .page-item.active .page-link {
   z-index: 3;

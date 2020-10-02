@@ -46,7 +46,7 @@ class SubcategoryController extends Controller
         Subcategory::create($request->all());
 
         //return redirect('/admin/category/index');
-        return redirect('subcategory')->with('message', 'Category created successfully');
+        return redirect('auth/subcategory')->with('message', 'Category created successfully');
     }
 
     /**

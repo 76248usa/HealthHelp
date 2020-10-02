@@ -16,8 +16,8 @@ class PhysicianController extends Controller
      */
     public function index()
     {
-        $physicians = Physician::paginate(20);
-        //$physicians = Physician::all();
+        //$physicians = Physician::paginate(20);
+        $physicians = Physician::all();
         return view('admin.physician.index', compact('physicians'));
     }
 
@@ -45,21 +45,29 @@ class PhysicianController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'category' => 'required'
+            'category' => 'required',
+
         ]);
 
-        //Physician::create($request->all());
-        //return redirect('admin.physician.create');
+        $file = $request->file('image');
+        $name = time() . $file->getClientOriginalName();
+        $file->move('images', $name);
 
+        //Physician::create(['image' => $name]);
         Physician::create([
             'name' => $request->name,
+            'address' => $request->address,
+            'phone' => $request->phone,
             'price' => $request->price,
             'specialization' => $request->specialization,
             'credentials' => $request->credentials,
             'category_id' => $request->category,
-            'subcategory_id' => $request->subcategory
-
+            'subcategory_id' => $request->subcategory,
+            'info' => $request->info,
+            'image' => $name
         ]);
+
+
         notify()->success('Physician successfully created');
         return redirect()->back();
     }
@@ -99,16 +107,32 @@ class PhysicianController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+        ]);
+        // $file = $request->file('image');
+        // $name = time() . $file->getClientOriginalName();
+        // $file->move('images', $name);
+
         $physician = Physician::findOrFail($id);
 
-        $physician->name = $request->name;
+        /*$physician->name = $request->name;
+        $physician->image = $request->image;
+        $physician->address = $request->address;
+        $physician->phone = $request->phone;
         $physician->credentials = $request->credentials;
         $physician->specialization = $request->specialization;
         $physician->category_id = $request->category;
         $physician->subcategory_id = $request->subcategory;
         $physician->price = $request->price;
+        $physician->info = $request->info;
 
-        $physician->save();
+        $physician->save();*/
+        $input = $request->all();
+        $physician->update($input);
+        //return $input;
 
         notify()->success('Physician updated successfully');
         return redirect()->route('physician.index');

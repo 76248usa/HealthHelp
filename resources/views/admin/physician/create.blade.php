@@ -30,6 +30,26 @@
         <div class="form-group">
                 {!! Form::label('price', 'Price:') !!}
                 {!! Form::text('price', null, ['class' => 'form-control'])!!}
+        </div>
+
+        <div class="form-group">
+                {!! Form::label('address', 'Address:') !!}
+                {!! Form::text('address', null, ['class' => 'form-control'])!!}
+        </div>
+
+        <div class="form-group">
+                {!! Form::label('image', 'Photo:') !!}
+                {!! Form::file('image', null,['class'=>'form-control'])!!}
+             </div>
+
+
+        <div class="form-group">
+                {!! Form::label('phone', 'Phone:') !!}
+                {!! Form::text('phone', null, ['class' => 'form-control'])!!}
+        </div>
+        <div class="form-group">
+                {!! Form::label('info', 'Additional Information:') !!}
+                {!! Form::textarea('info', null, ['class'=>'form-control'])!!}
             </div>
 
 
@@ -46,13 +66,14 @@
 </select>
 </div>
 
-
 <div class="form-group">
         <label for="">Choose Subcategory</label>
     <select class="form-control form-control-lg" name="subcategory">
 
         <option value="">Choose Subcategory</option>
-
+        @foreach(App\Subcategory::all() as $key=>$subcategory)
+        <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+        @endforeach
 
     </select>
     </div>
@@ -92,32 +113,45 @@
 
             </div>
 
+
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('select[name="category"]').on('change', function() {
-            var catId = $(this).val();
-            if(catId) {
-                $.ajax({
-                    url: '/subcategories/'+catId,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
+            <script type="text/javascript">
+                $("document").ready(function(){
+                    $('select[name="category"]').on('change',function(){
+                        var catId = $(this).val();
+                        if(catId){
+                            $.ajax({
+
+                                url:'/subcategories/'+catId,
+                                type:"GET",
+                                dataType:"json",
+                                success:function(data){
+                                    $('select[name="subcategory"]').empty();
+                                    $.each(data,function(key,value){
+                                        $('select[name="subcategory"]').append('<option value=" '+key+'">'+value+'</option>');
+                                    })
+                                }
 
 
-                        $('select[name="subcategory"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="subcategory"]').append('<option value="'+ key +'">'+ value +'</option>');
-                        });
+                            })
+                        }else{
+                          $('select[name="subcategory"]').empty();
+                        }
+                    });
 
 
-                    }//success close
                 });
-            }else{ //if close and starts
-                $('select[name="subcategory"]').empty();
-            }
-        });
-    });
-</script>
+            </script>
+
 
 @endsection
+
+
+
+
+
+
+
+
+
+
