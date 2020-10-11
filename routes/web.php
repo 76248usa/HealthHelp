@@ -30,8 +30,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', 'FrontProductListController@index');
 Route::get('/physician/{id}', 'FrontProductListController@show')->name('physician.view');
-Route::get('all/products', 'FrontProductListController@moreProducts')->name('more.product');
-Route::get('/category/{name}', 'FrontProductListController@allProduct')->name('product.list');
+Route::get('all/physicians', 'FrontProductListController@moreProducts')->name('more.physician');
+Route::get('/category/{name}', 'FrontProductListController@allProduct')->name('physician.list');
+
+
+
+
 
 Route::group(['prefix' => 'auth', 'middleware' => ['auth', 'isAdmin']], function () {
 

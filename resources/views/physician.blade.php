@@ -20,11 +20,8 @@
   </section>
   <h2>Category</h2>
   @foreach(App\Category::all() as $cat)
-  <a href="{{ route('product.list', [$cat->id]) }}"> <button class="btn btn-secondary">{{ $cat->name }}</button>
+  <a href="{{ route('physician.list', [$cat->id]) }}"> <button class="btn btn-secondary">{{ $cat->name }}</button></a>
 @endforeach
-
-
-
 
   <h3 class="text-center">Choose your Medication</h3>
   @foreach(App\Subcategory::all() as $cat)
@@ -36,6 +33,8 @@
     <div class="container">
         <h3 class="text-center" style="color: #3490dc;">Physicians in your Area</h3>
         <br>
+
+
       <div class="row">
             @if($physicians)
             @foreach($physicians as $physician)
@@ -57,9 +56,10 @@
               <h5 class="card-text" id="#h5"><span >Procedure Price: {{ $physician->price }}</span></h5>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                    <a href="physician/{{ $physician->id }}">
+                    <a href="{{ route('physician.view', [$physician->id]) }}">
                   <button id = "but1" type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                  <button id = "but2" type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <a href="#">
+                  <button id = "but2" type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button></a>
 
                 </div>
                 <small class="text-muted">9 mins</small>
@@ -73,9 +73,12 @@
               @endif
 
     </div>
+
+
+
 </div>
 <center>
-    <a href="{{ route('more.product') }}"><button class="btn btn-success">More Physicians</button></a>
+    <a href="{{ route('more.physician') }}"><button class="btn btn-success">More Physicians</button></a>
 </center>
 </div>
 
