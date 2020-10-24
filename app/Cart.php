@@ -2,15 +2,11 @@
 
 namespace App;
 
-use App\Physician;
-
 class Cart
 {
-
     public $items = [];
     public $totalQty;
     public $totalPrice;
-
 
     public function __construct($cart = null)
     {
@@ -27,8 +23,8 @@ class Cart
 
     public function add($physician)
     {
-        //$physician = Physician::findOrFail($physician);
         $item = [
+
             'id' => $physician->id,
             'name' => $physician->name,
             'price' => $physician->price,
@@ -45,5 +41,25 @@ class Cart
             $this->totalPrice += $physician->price;
         }
         $this->items[$physician->id]['qty'] += 1;
+    }
+
+    public function updateQty($id, $qty)
+    {
+        $this->totalQty -= $this->items[$id]['qty'];
+        $this->totalPrice -= $this->items[$id]['price'] * $this->items[$id]['qty'];
+        //add the item with new qty
+        $this->items[$id]['qty'] = $qty;
+        $this->totalQty += $qty;
+        $this->totalPrice += $this->items[$id]['price'] * $qty;
+    }
+
+
+    public function remove($id)
+    {
+        if (array_key_exists($id, $this->items)) {
+            $this->totalQty -= $this->items[$id]['qty'];
+            $this->totalPrice -= $this->items[$id]['qty'] * $this->items[$id]['price'];
+            unset($this->items[$id]);
+        }
     }
 }

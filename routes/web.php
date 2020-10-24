@@ -32,8 +32,10 @@ Route::get('/', 'FrontProductListController@index');
 Route::get('/physician/{id}', 'FrontProductListController@show')->name('physician.view');
 Route::get('all/physicians', 'FrontProductListController@moreProducts')->name('more.physician');
 Route::get('/category/{name}', 'FrontProductListController@allProduct')->name('physician.list');
-
-
+Route::get('/addToCart/{physician}', 'CartController@addToCart')->name('add.cart');
+Route::get('/cart', 'CartController@showCart')->name('cart.show');
+Route::post('/physicians/{physician}', 'CartController@updateCart')->name('cart.update');
+Route::post('/physician/{physician}', 'CartController@removeCart')->name('cart.remove');
 
 
 

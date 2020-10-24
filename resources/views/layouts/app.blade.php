@@ -42,8 +42,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        
-                            
+
+                        <a href="{{ route('cart.show') }}" class="nav-link">
+                            <span class="fas fa-shopping-cart">
+                             ({{session()->has('cart')?session()->get('cart')->totalQty:'0'}})
+                            </span>
+                        </a>
+
+
+
+
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

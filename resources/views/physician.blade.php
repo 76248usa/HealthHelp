@@ -3,8 +3,6 @@
 
 @section('content')
 
-
-
 <div class="container">
 <main role="main">
 
@@ -58,7 +56,7 @@
                 <div class="btn-group">
                     <a href="{{ route('physician.view', [$physician->id]) }}">
                   <button id = "but1" type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                  <a href="#">
+                  <a href="{{ route('add.cart', [$physician->id]) }}">
                   <button id = "but2" type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button></a>
 
                 </div>
